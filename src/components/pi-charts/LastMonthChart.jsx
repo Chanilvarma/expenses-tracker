@@ -1,7 +1,7 @@
 import React from 'react'
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import { COLORS, renderCustomizedLabel, individualCategoryTotal } from '../../helper/reUsableFunctions'
-import { firstDate, lastDate } from '../dates';
+import { firstDate, lastDate } from '../../helper/dates';
 
 const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
 

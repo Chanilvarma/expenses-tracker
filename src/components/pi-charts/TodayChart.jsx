@@ -1,7 +1,7 @@
 import React from 'react'
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import { COLORS, renderCustomizedLabel, individualCategoryTotal } from '../../helper/reUsableFunctions'
-import { today } from '../dates';
+import { today } from '../../helper/dates';
 
 const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
 

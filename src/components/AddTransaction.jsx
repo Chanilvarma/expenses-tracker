@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState'
 import { useHistory } from 'react-router-dom';
-import { maxDate } from './dates';
+import { maxDate } from '../helper/dates';
 
 
 const AddTransaction = () => {
