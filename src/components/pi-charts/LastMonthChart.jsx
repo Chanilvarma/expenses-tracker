@@ -94,12 +94,6 @@ const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
                             </Pie>
                             <Tooltip />
                         </PieChart>
-                        <hr />
-                        <ul className='expenses-list'>
-                            <li><span className=' box green-box'></span>Travel: ${newGroupArrays[0].total}</li>
-                            <li><span className=' box orange-box'></span>Personal: ${newGroupArrays[2].total}</li>
-                            <li><span className=' box blue-box'></span>Essential : ${newGroupArrays[1].total}</li>
-                        </ul>
                     </>)
             }
 

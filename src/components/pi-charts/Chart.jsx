@@ -19,20 +19,20 @@ const Chart = ({ groupArrays }) => {
 
     return (
         <div>
+            <div className="inc-exp-container">
+                <div>
+                    <h4>Income</h4>
+                    <p className="money plus">+${income}</p>
+                </div>
+                <div>
+                    <h4>Expense</h4>
+                    <p className="money minus">-${expense}</p>
+                </div>
+            </div>
             {
                 groupArrays.length === 0 ?
-                    (<h3>You Don't have any transactions. Please add transactions to display chart here..</h3>) : (
+                    (<h3>You Don't have any expenses. Please add expenses to display chart here..</h3>) : (
                         <>
-                            <div className="inc-exp-container">
-                                <div>
-                                    <h4>Income</h4>
-                                    <p className="money plus">+${income}</p>
-                                </div>
-                                <div>
-                                    <h4>Expense</h4>
-                                    <p className="money minus">-${expense}</p>
-                                </div>
-                            </div>
                             <PieChart width={300} height={200}>
                                 <Pie
                                     className='pie-style'
@@ -51,12 +51,6 @@ const Chart = ({ groupArrays }) => {
                                 </Pie>
                                 <Tooltip />
                             </PieChart>
-                            <hr />
-                            <ul className='expenses-list'>
-                                <li><span className=' box green-box'></span>Travel: ${groupArrays[1].total}</li>
-                                <li><span className=' box orange-box'></span>Personal: ${groupArrays[2].total}</li>
-                                <li><span className=' box blue-box'></span>Essential : ${groupArrays[0].total}</li>
-                            </ul>
                         </>
                     )
             }

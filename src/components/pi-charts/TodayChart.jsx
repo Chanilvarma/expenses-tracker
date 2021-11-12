@@ -50,6 +50,7 @@ const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
     return (
         <div>
 
+
             {
                 groupArrays[0] === undefined ? (<h3>You don't have any transactions on {today}</h3>) : (<>
                     {
@@ -67,7 +68,6 @@ const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
                                         <p className="money minus">-${expense}</p>
                                     </div>
                                 </div>
-
                                 <PieChart width={300} height={200}>
                                     <Pie
                                         className='pie-style'
@@ -86,18 +86,6 @@ const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
                                     </Pie>
                                     <Tooltip content={groupArrays[0].items[0].category} />
                                 </PieChart>
-                                <hr />
-                                <ul className='expenses-list'>
-                                    <li><span className=' box green-box'></span>
-                                        Travel: {categoryGroupArrays[0] === undefined ? '$0' : `$ ${categoryGroupArrays[1].total}`}
-                                    </li>
-                                    <li><span className=' box orange-box'></span>
-                                        Personal:{categoryGroupArrays[2] === undefined ? '$0' : `$ ${categoryGroupArrays[2].total}`}
-                                    </li>
-                                    <li><span className=' box blue-box'></span>
-                                        Essential : {categoryGroupArrays[1] === undefined ? '$0' : `$ ${categoryGroupArrays[0].total}`}
-                                    </li>
-                                </ul>
                             </>
                         ) : (<h3> You don't have any transactions on {today}</h3>)
                     }

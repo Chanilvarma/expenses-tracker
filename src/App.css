@@ -172,10 +172,15 @@ select {
     float: right;
 }
 
+
 .color-box {
     display: flex;
     justify-content: center;
     justify-content: space-around;
+    list-style: none;
+    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .box {
@@ -205,13 +210,4 @@ select {
 
 .card-body {
     margin: 0 auto;
-}
-
-.expenses-list {
-    display: flex;
-    list-style: none;
-    justify-content: space-between;
-    text-transform: capitalize;
-    font-size: 12px;
-    font-weight: bold;
 }

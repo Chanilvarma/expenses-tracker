@@ -3,6 +3,7 @@ import Chart from './Chart'
 import TodayChart from './TodayChart'
 import YesterdayChart from './YesterdayChart'
 import LastMonthChart from './LastMonthChart'
+import ChartDesc from './ChartDesc'
 
 
 const ChartCard = ({ groupArrays, dateGroupArrays, PlusGroupArrays, plusdateGroupArrays }) => {
@@ -39,7 +40,9 @@ const ChartCard = ({ groupArrays, dateGroupArrays, PlusGroupArrays, plusdateGrou
                 {active === 'yesterday' && <YesterdayChart groupArrays={dateGroupArrays} plusdateGroupArrays={plusdateGroupArrays} />}
                 {active === 'lastmonth' && <LastMonthChart groupArrays={groupArrays} PlusGroupArrays={PlusGroupArrays} />}
             </div>
-
+            <div className="card-foter">
+                <ChartDesc />
+            </div>
         </div>
     )
 }
