@@ -15,10 +15,13 @@ const YesterdayChart = ({ groupArrays, plusdateGroupArrays }) => {
             .filter(item => item > 0)
             .reduce((acc, item) => (acc += item), 0)
             .toFixed(2);
-        const incomeAmount = plusdateGroupArrays[1].items.map(transaction => transaction.amount)
-        income = incomeAmount.filter(item => item > 0)
-            .reduce((acc, item) => (acc += item), 0)
-            .toFixed(2);
+        if (plusdateGroupArrays[1] !== undefined) {
+            const incomeAmount = plusdateGroupArrays[1].items.map(transaction => transaction.amount)
+            income = incomeAmount.filter(item => item > 0)
+                .reduce((acc, item) => (acc += item), 0)
+                .toFixed(2);
+        }
+
         // expense = (
         //     amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) *
         //     -1
