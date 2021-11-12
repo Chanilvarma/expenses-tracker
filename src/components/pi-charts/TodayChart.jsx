@@ -55,7 +55,7 @@ const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
 
 
             {
-                groupArrays[0] === undefined ? (<h3>You don't have any transactions on {today}</h3>) : (<>
+                groupArrays[0] === undefined ? (<h3>You don't have any expenses on {today}</h3>) : (<>
                     {
                         groupArrays[0].date === today ? (
                             <>
@@ -83,8 +83,10 @@ const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
                                         label={renderCustomizedLabel}
                                         outerRadius={80}
                                     >
-                                        {groupArrays.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        {categoryGroupArrays.map((entry, index) => (
+                                            ((entry.name === "personal") && <Cell key={`cell-${index}`} fill={COLORS[2]} />)
+                                            || ((entry.name === "travel") && <Cell key={`cell-${index}`} fill={COLORS[1]} />)
+                                            || ((entry.name === "essential") && <Cell key={`cell-${index}`} fill={COLORS[0]} />)
                                         ))}
                                     </Pie>
                                     <Tooltip content={groupArrays[0].items[0].category} />

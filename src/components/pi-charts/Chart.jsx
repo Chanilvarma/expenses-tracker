@@ -5,6 +5,11 @@ import { GlobalContext } from '../../context/GlobalState'
 
 const Chart = ({ groupArrays }) => {
     const { transactions } = useContext(GlobalContext)
+    console.log(groupArrays)
+
+    // for (let i = 0; i < groupArrays.length; i++) {
+
+    // }
 
     // Calculating the Income and Expense
     const amounts = transactions.map(transaction => transaction.amount);
@@ -45,8 +50,13 @@ const Chart = ({ groupArrays }) => {
                                     label={renderCustomizedLabel}
                                     outerRadius={80}
                                 >
+
+
                                     {groupArrays.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ((entry.name === "personal") && <Cell key={`cell-${index}`} fill={COLORS[2]} />)
+                                        || ((entry.name === "travel") && <Cell key={`cell-${index}`} fill={COLORS[1]} />)
+                                        || ((entry.name === "essential") && <Cell key={`cell-${index}`} fill={COLORS[0]} />)
+
                                     ))}
                                 </Pie>
                                 <Tooltip />

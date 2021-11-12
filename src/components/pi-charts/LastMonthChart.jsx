@@ -88,8 +88,10 @@ const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
                                 label={renderCustomizedLabel}
                                 outerRadius={80}
                             >
-                                {groupArrays.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                {newGroupArrays.map((entry, index) => (
+                                    ((entry.name === "personal") && <Cell key={`cell-${index}`} fill={COLORS[2]} />)
+                                    || ((entry.name === "travel") && <Cell key={`cell-${index}`} fill={COLORS[1]} />)
+                                    || ((entry.name === "essential") && <Cell key={`cell-${index}`} fill={COLORS[0]} />)
                                 ))}
                             </Pie>
                             <Tooltip />
