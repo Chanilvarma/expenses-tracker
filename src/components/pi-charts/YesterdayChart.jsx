@@ -81,12 +81,6 @@ const YesterdayChart = ({ groupArrays, plusdateGroupArrays }) => {
                                     </Pie>
                                     <Tooltip content={groupArrays[0].items[0].category} />
                                 </PieChart>
-                                <hr />
-                                <ul className='expenses-list'>
-                                    <li><span className=' box green-box'></span>Travel: ${categoryGroupArrays[1].total}</li>
-                                    <li><span className=' box orange-box'></span>Personal: ${categoryGroupArrays[2].total}</li>
-                                    <li><span className=' box blue-box'></span>Essential : ${categoryGroupArrays[0].total}</li>
-                                </ul>
                             </>
                         ) : (<h3> You don't have any transactions on {yesterday} </h3>)
                     }
