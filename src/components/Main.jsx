@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState'
-import { individualCategoryTotal } from './reUsableFunctions'
+import { individualCategoryTotal } from '../helper/reUsableFunctions'
 import Balance from './Balance'
 import ChartCard from './pi-charts/ChartCard'
 

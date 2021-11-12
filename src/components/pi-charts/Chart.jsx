@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
-import { COLORS, renderCustomizedLabel } from '../reUsableFunctions'
+import { COLORS, renderCustomizedLabel } from '../../helper/reUsableFunctions'
 import { GlobalContext } from '../../context/GlobalState'
 
 const Chart = ({ groupArrays }) => {
