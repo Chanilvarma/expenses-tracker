@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
-import { COLORS, renderCustomizedLabel, calcIncome, calcExpenses, clacAmount } from '../../helper/reUsableFunctions'
+import { COLORS, renderCustomizedLabel, calAllExpenses, calcIncome, clacAmount } from '../../helper/reUsableFunctions'
 import { GlobalContext } from '../../context/GlobalState'
 
 const Chart = ({ expensesCategoryGroup }) => {
     const { transactions } = useContext(GlobalContext)
 
     // Calculating the Income and Expense
-    const Expense = calcExpenses(clacAmount(transactions));
-    const Income = calcIncome(clacAmount(transactions))
+    const Income = calcIncome(clacAmount(transactions));
+    const Expense = calAllExpenses(clacAmount(transactions))
 
     return (
         <div>

@@ -11,6 +11,13 @@ const Accordion = () => {
     const allTransactionsArray = dateGrouping(transactions)
     // console.log(allTransactionsArray)
 
+
+    // Sorting data based on date
+    const sortType = 'asc';
+    const sorted = transactions.sort((a, b) => {
+        const isSorted = (sortType === 'asc') ? 1 : -1
+        return isSorted * b.date.localeCompare(a.date)
+    })
     const handleClick = (index) => {
         setActiveIndex(index)
     }

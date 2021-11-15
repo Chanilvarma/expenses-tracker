@@ -4,7 +4,6 @@ import { COLORS, renderCustomizedLabel, categoryGrouping, calcExpenses, calcInco
 import { today } from '../../helper/dates';
 
 const TodayChart = ({ expensesDateGroup, incomeDateGroup }) => {
-    console.log(incomeDateGroup)
 
     let categoryGroupArrays, Expense, Income
     if (expensesDateGroup[0] !== undefined) {

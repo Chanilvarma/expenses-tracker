@@ -18,7 +18,7 @@ const YesterdayChart = ({ expensesDateGroup, incomeDateGroup }) => {
         expensesGroupArray = categoryGrouping(expensesData)
         Expense = calcExpenses(clacAmount(expensesData));
 
-        if (incomeData !== undefined || incomeData[0].date === yesterday) {
+        if (incomeData !== undefined) {
             Income = calcIncome(clacAmount(incomeData))
         }
     }

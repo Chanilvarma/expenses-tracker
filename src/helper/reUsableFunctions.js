@@ -128,7 +128,12 @@ export const calcExpenses = (amount) => {
     .reduce((acc, item) => (acc += item), 0)
     .toFixed(2);
 };
-
+export const calAllExpenses = (amount) => {
+  return (
+    amount.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0) *
+    -1
+  ).toFixed(2);
+};
 export const calcIncome = (amount) => {
   return amount
     .filter((item) => item > 0)
