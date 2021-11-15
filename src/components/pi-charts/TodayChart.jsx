@@ -1,74 +1,41 @@
 import React from 'react'
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
-import { COLORS, renderCustomizedLabel, individualCategoryTotal } from '../../helper/reUsableFunctions'
+import { COLORS, renderCustomizedLabel, categoryGrouping, calcExpenses, calcIncome, clacAmount } from '../../helper/reUsableFunctions'
 import { today } from '../../helper/dates';
 
-const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
+const TodayChart = ({ expensesDateGroup, incomeDateGroup }) => {
+    console.log(incomeDateGroup)
 
+    let categoryGroupArrays, Expense, Income
+    if (expensesDateGroup[0] !== undefined) {
 
-    let categoryGroupArrays, expense, income;
-    // Grouping same date data(category)
-    if (groupArrays[0] !== undefined) {
-        const amounts = groupArrays[0].items.map(transaction => transaction.amount);
-        expense = amounts
-            .filter(item => item > 0)
-            .reduce((acc, item) => (acc += item), 0)
-            .toFixed(2);
-        if (plusdateGroupArrays[0] !== undefined) {
-            const incomeAmount = plusdateGroupArrays[0].items.map(transaction => transaction.amount)
-            income = incomeAmount.filter(item => item > 0)
-                .reduce((acc, item) => (acc += item), 0)
-                .toFixed(2);
+        // Grouping same date
+        categoryGroupArrays = categoryGrouping(expensesDateGroup[0].items);
+        // Calculating the Income and Expense
+        Expense = calcExpenses(clacAmount(expensesDateGroup[0].items));
+        if (incomeDateGroup[0] !== undefined && incomeDateGroup[0].date === today) {
+            Income = calcIncome(clacAmount(incomeDateGroup[0].items))
         }
-
-        // income = (
-        //     amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) *
-        //     -1
-        // ).toFixed(2);
-        const categoryGroup = groupArrays[0].items.reduce((categoryGroup, item) => {
-            const name = item.name.split('T')[0];
-            if (!categoryGroup[name]) {
-                categoryGroup[name] = [];
-
-            }
-            categoryGroup[name].push(item);
-            return categoryGroup;
-        }, {});
-
-        // Edit: to add it in the array format instead
-        categoryGroupArrays = Object.keys(categoryGroup).map((name) => {
-            return {
-                items: categoryGroup[name],
-                name: categoryGroup[name][0].name,
-                total: individualCategoryTotal(categoryGroup[name])
-            };
-
-        });
 
     }
 
-
-    console.log(categoryGroupArrays)
-
     return (
         <div>
-
-
             {
-                groupArrays[0] === undefined ? (<h3>You don't have any expenses on {today}</h3>) : (<>
+                expensesDateGroup[0] === undefined ? (<h3>You don't have any transactions on {today}</h3>) : (<>
                     {
-                        groupArrays[0].date === today ? (
+                        expensesDateGroup[0].date === today ? (
                             <>
 
-                                <h3>{groupArrays[0].date}</h3>
+                                <h3>{expensesDateGroup[0].date}</h3>
                                 <div className="inc-exp-container">
                                     <div>
                                         <h4>Income</h4>
-                                        <p className="money plus">+${income}</p>
+                                        <p className="money plus">+${Income}</p>
                                     </div>
                                     <div>
                                         <h4>Expense</h4>
-                                        <p className="money minus">-${expense}</p>
+                                        <p className="money minus">-${Expense}</p>
                                     </div>
                                 </div>
                                 <PieChart width={300} height={200}>
@@ -89,7 +56,7 @@ const TodayChart = ({ groupArrays, plusdateGroupArrays }) => {
                                             || ((entry.name === "essential") && <Cell key={`cell-${index}`} fill={COLORS[0]} />)
                                         ))}
                                     </Pie>
-                                    <Tooltip content={groupArrays[0].items[0].category} />
+                                    <Tooltip content={expensesDateGroup[0].items[0].category} />
                                 </PieChart>
                             </>
                         ) : (<h3> You don't have any transactions on {today}</h3>)

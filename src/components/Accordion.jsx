@@ -1,45 +1,15 @@
 import React, { useState, useContext } from 'react'
 import Transaction from './Transaction'
+import { dateGrouping } from '../helper/reUsableFunctions'
 import { GlobalContext } from '../context/GlobalState'
 
 const Accordion = () => {
     const [ActiveIndex, setActiveIndex] = useState(null)
     const { transactions } = useContext(GlobalContext);
 
-
-    const individualDayTotal = (arr) => {
-        let temp = 0;
-        for (let j = 0; j < arr.length; j++) {
-            temp += arr[j].amount
-        }
-        return temp
-    }
-
-    // Grouping same date data
-    const groups = transactions.reduce((groups, item) => {
-        const date = item.date.split('T')[0];
-        if (!groups[date]) {
-            groups[date] = [];
-
-        }
-        groups[date].push(item);
-        return groups;
-    }, {});
-
-    // Edit: to add it in the array format instead
-    const groupArrays = Object.keys(groups).map((date) => {
-        return {
-            date,
-            items: groups[date],
-            total: individualDayTotal(groups[date])
-        };
-    });
-    // sorting the transaction array based on date
-    const sortType = 'asc';
-    const sorted = transactions.sort((a, b) => {
-        const isSorted = (sortType === 'asc') ? 1 : -1
-        return isSorted * b.date.localeCompare(a.date)
-    })
+    // Grouping same date Data
+    const allTransactionsArray = dateGrouping(transactions)
+    // console.log(allTransactionsArray)
 
     const handleClick = (index) => {
         setActiveIndex(index)
@@ -48,7 +18,7 @@ const Accordion = () => {
     return (
         <div>
             {
-                groupArrays.map((transaction, index) => {
+                allTransactionsArray.map((transaction, index) => {
                     const active = index === ActiveIndex ? 'active' : '';
                     return (
                         <div className="ui styled accordion" key={transaction.id}>

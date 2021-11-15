@@ -6,7 +6,7 @@ import LastMonthChart from './LastMonthChart'
 import ChartDesc from './ChartDesc'
 
 
-const ChartCard = ({ groupArrays, dateGroupArrays, PlusGroupArrays, plusdateGroupArrays }) => {
+const ChartCard = ({ expensesCategoryGroup, incomeCategoryGroup, expensesDateGroup, incomeDateGroup }) => {
     const [active, setActive] = useState('all')
     return (
         <div className="card text-center" >
@@ -35,10 +35,10 @@ const ChartCard = ({ groupArrays, dateGroupArrays, PlusGroupArrays, plusdateGrou
                 </ul>
             </div>
             <div className="card-body">
-                {active === 'all' && <Chart groupArrays={groupArrays} PlusGroupArrays={PlusGroupArrays} />}
-                {active === 'today' && <TodayChart groupArrays={dateGroupArrays} plusdateGroupArrays={plusdateGroupArrays} />}
-                {active === 'yesterday' && <YesterdayChart groupArrays={dateGroupArrays} plusdateGroupArrays={plusdateGroupArrays} />}
-                {active === 'lastmonth' && <LastMonthChart groupArrays={groupArrays} PlusGroupArrays={PlusGroupArrays} />}
+                {active === 'all' && <Chart expensesCategoryGroup={expensesCategoryGroup} />}
+                {active === 'today' && <TodayChart expensesDateGroup={expensesDateGroup} incomeDateGroup={incomeDateGroup} />}
+                {active === 'yesterday' && <YesterdayChart expensesDateGroup={expensesDateGroup} incomeDateGroup={incomeDateGroup} />}
+                {active === 'lastmonth' && <LastMonthChart expensesCategoryGroup={expensesCategoryGroup} incomeCategoryGroup={incomeCategoryGroup} />}
             </div>
             <div className="card-foter">
                 <ChartDesc />

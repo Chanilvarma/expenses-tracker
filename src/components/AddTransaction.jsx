@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { GlobalContext } from '../context/GlobalState'
 import { useHistory } from 'react-router-dom';
 import { maxDate } from '../helper/dates';
@@ -6,6 +6,7 @@ import { maxDate } from '../helper/dates';
 
 const AddTransaction = () => {
     const history = useHistory();
+    const input = useRef();
     const { addTransaction } = useContext(GlobalContext);
     const [text, setText] = useState('')
     const [date, setDate] = useState('')
@@ -14,15 +15,14 @@ const AddTransaction = () => {
 
     //Adding New transaction
     const handleAddTransaction = (e) => {
-        history.push('/history')
         e.preventDefault();
+        history.push('/history')
         const newTranscation = {
             id: Math.floor(Math.random() * 1000000),
             text,
             name,
             amount: +amount,
             date,
-
         }
         addTransaction(newTranscation);
         setAmount(0)
@@ -37,7 +37,7 @@ const AddTransaction = () => {
                 <form>
                     <div className="form-control">
                         <label htmlFor="text">Text</label>
-                        <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter text..." required />
+                        <input type="text" ref={input} value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter text..." required />
                     </div>
                     <div className="form-control">
                         <label htmlFor="date">Date</label>

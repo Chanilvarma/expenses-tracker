@@ -1,78 +1,35 @@
 import React from 'react'
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
-import { COLORS, renderCustomizedLabel, individualCategoryTotal } from '../../helper/reUsableFunctions'
+import { COLORS, renderCustomizedLabel, categoryGrouping, filterDataBasedOnDates, calcExpenses, clacAmount, calcIncome } from '../../helper/reUsableFunctions'
 import { firstDate, lastDate } from '../../helper/dates';
 
-const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
+const LastMonthChart = ({ expensesCategoryGroup, incomeCategoryGroup, }) => {
 
-    let temp = []
-    for (let i = 0; i < groupArrays.length; i++) {
-        for (let j = 0; j < groupArrays[i].items.length; j++) {
-            if (groupArrays[i].items[j].date >= firstDate && groupArrays[i].items[j].date <= lastDate) {
-                temp.push(groupArrays[i].items[j])
-            }
-        }
-    }
+    // Filter Data based on Date
+    const expensesGroup = filterDataBasedOnDates(expensesCategoryGroup)
+    const incomeGroup = filterDataBasedOnDates(incomeCategoryGroup)
 
-    let temp2 = []
-    for (let i = 0; i < PlusGroupArrays.length; i++) {
-        for (let j = 0; j < PlusGroupArrays[i].items.length; j++) {
-            if (PlusGroupArrays[i].items[j].date >= firstDate && PlusGroupArrays[i].items[j].date <= lastDate) {
-                temp2.push(PlusGroupArrays[i].items[j])
-            }
-        }
-    }
     // Calculating the Income and Expense
-    const amounts = temp.map(transaction => transaction.amount);
-    const expense = amounts
-        .filter(item => item > 0)
-        .reduce((acc, item) => (acc += item), 0)
-        .toFixed(2);
-    const incomeAmount = temp2.map(transaction => transaction.amount)
-    const income = incomeAmount.filter(item => item > 0)
-        .reduce((acc, item) => (acc += item), 0)
-        .toFixed(2);
-    // const income = (
-    //     amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) *
-    //     -1
-    // ).toFixed(2);
+    const Expense = calcExpenses(clacAmount(expensesGroup));
+    const Income = calcIncome(clacAmount(incomeGroup))
 
-    // Grouping same date data
-    const newGroup = temp.reduce((newGroup, item) => {
-        const name = item.name.split('T')[0];
-        if (!newGroup[name]) {
-            newGroup[name] = [];
+    // Grouping same category data
+    const expensesGroupArray = categoryGrouping(expensesGroup);
 
-        }
-        newGroup[name].push(item);
-        return newGroup;
-    }, {});
-
-    // Edit: to add it in the array format instead
-    const newGroupArrays = Object.keys(newGroup).map((name) => {
-        return {
-            items: newGroup[name],
-            name: newGroup[name][0].name,
-            total: individualCategoryTotal(newGroup[name])
-        };
-
-    });
-
-    // console.log(newGroupArrays)
     return (
         <div>
             {
-                newGroupArrays.length === 0 ? (<h3>You Don't have any transactions between {firstDate} and {lastDate}</h3>) : (
+                expensesGroupArray.length === 0 ? (<h3>You Don't have any transactions between {firstDate} and {lastDate}</h3>) : (
                     <>
                         <h3>{firstDate} to {lastDate}</h3>
                         <div className="inc-exp-container">
                             <div>
                                 <h4>Income</h4>
-                                <p className="money plus">+${income}</p>
+                                <p className="money plus">+${Income}</p>
                             </div>
                             <div>
                                 <h4>Expense</h4>
-                                <p className="money minus">-${expense}</p>
+                                <p className="money minus">-${Expense}</p>
                             </div>
                         </div>
 
@@ -80,7 +37,7 @@ const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
                             <Pie
                                 className='pie-style'
                                 dataKey="total"
-                                data={newGroupArrays}
+                                data={expensesGroupArray}
                                 isAnimationActive={true}
                                 cx="50%"
                                 cy="50%"
@@ -88,7 +45,7 @@ const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
                                 label={renderCustomizedLabel}
                                 outerRadius={80}
                             >
-                                {newGroupArrays.map((entry, index) => (
+                                {expensesGroupArray.map((entry, index) => (
                                     ((entry.name === "personal") && <Cell key={`cell-${index}`} fill={COLORS[2]} />)
                                     || ((entry.name === "travel") && <Cell key={`cell-${index}`} fill={COLORS[1]} />)
                                     || ((entry.name === "essential") && <Cell key={`cell-${index}`} fill={COLORS[0]} />)
@@ -98,8 +55,6 @@ const LastMonthChart = ({ groupArrays, PlusGroupArrays }) => {
                         </PieChart>
                     </>)
             }
-
-
         </div>
     )
 }
